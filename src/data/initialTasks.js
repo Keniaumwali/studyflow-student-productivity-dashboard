@@ -1,0 +1,51 @@
+
+export const initialTasks = [
+  {
+    id: 1,
+    title: "Complete React Week 8 Assignment",
+    category: "Programming",
+    dueDate: "2026-11-23",
+    priority: "High",
+    completed: false,
+  },
+  {
+    id: 2,
+    title: "Study Database Development",
+    category: "Database",
+    dueDate: "2026-11-24",
+    priority: "High",
+    completed: false,
+  },
+  {
+    id: 3,
+    title: "Review Object-Oriented Programming",
+    category: "Programming",
+    dueDate: "2026-11-25",
+    priority: "Medium",
+    completed: false,
+  },
+  {
+    id: 4,
+    title: "Prepare Linux Administration Notes",
+    category: "Networking",
+    dueDate: "2026-11-26",
+    priority: "Low",
+    completed: true,
+  },
+  {
+    id: 5,
+    title: "Practice JavaScript Exercises",
+    category: "Programming",
+    dueDate: "2026-11-22",
+    priority: "Medium",
+    completed: false,
+  },
+  {
+    id: 6,
+    title: "Read Software Engineering Chapter",
+    category: "Research",
+    dueDate: "2026-11-27",
+    priority: "Low",
+    completed: false,
+  },
+];
