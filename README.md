@@ -5,8 +5,8 @@ StudyFlow is a responsive student productivity web application built with React 
 ## Features
 
 ### 1. Dashboard
-- Displays total, completed, and pending tasks.
-- Shows task completion progress.
+- Displays the total number of tasks, completed tasks, and pending tasks.
+- Shows overall task completion progress.
 - Displays upcoming tasks.
 - Provides a quick overview of study activities.
 
@@ -17,6 +17,7 @@ StudyFlow is a responsive student productivity web application built with React 
 - Filter tasks by category and completion status.
 - Sort tasks by due date or alphabetical order.
 - Display appropriate empty states when no tasks or search results exist.
+- Validate task forms to prevent blank task titles.
 
 ### 3. Focus Timer
 - 25-minute Study session.
@@ -27,14 +28,16 @@ StudyFlow is a responsive student productivity web application built with React 
 - Cleans up the timer interval when the component unmounts.
 
 ### 4. Settings
+- Customize the display name.
+- Select and save a preferred study duration.
 - Customize daily study goals.
 - Enable or disable study reminders.
 - Automatically save preferences using localStorage.
 
 ### 5. Data Persistence
-- Tasks are saved in localStorage.
-- Settings are saved in localStorage.
-- Data remains available after refreshing the browser.
+- Tasks are saved in browser localStorage.
+- User preferences are saved in browser localStorage.
+- Application data remains available after refreshing the browser.
 
 ## Technologies Used
 
@@ -48,21 +51,24 @@ StudyFlow is a responsive student productivity web application built with React 
 
 ## Custom React Hooks
 
-StudyFlow uses four custom hooks:
+StudyFlow uses four custom React Hooks:
 
 | Hook | Purpose |
 |---|---|
 | `useLocalStorage` | Stores and retrieves application data from localStorage. |
-| `useToggle` | Manages boolean states such as starting and pausing the timer. |
+| `useToggle` | Manages boolean states, such as starting and pausing the timer. |
 | `useDocumentTitle` | Updates the browser tab title for each page. |
 | `useDebounce` | Delays search updates to avoid filtering on every keystroke. |
 
 ## Component Structure
 
+The project is organized into reusable components, custom Hooks, data, layouts, and pages.
+
 ```text
 studyflow/
 ├── public/
-│   └── favicon.svg
+│   ├── favicon.svg
+│   └── _redirects
 ├── src/
 │   ├── components/
 │   │   ├── EmptyState.jsx
@@ -94,6 +100,8 @@ studyflow/
 
 ## Application Routes
 
+React Router DOM is used to navigate between the different application pages.
+
 | Route | Description |
 |---|---|
 | `/` | Dashboard |
@@ -101,6 +109,20 @@ studyflow/
 | `/focus` | Focus timer |
 | `/settings` | Application settings |
 | `*` | 404 Not Found page |
+
+The application uses a shared layout and navigation across its pages. A custom navigation style indicates the currently active page.
+
+## State Management and Data Persistence
+
+The application uses React state and props to manage and share task information.
+
+- `App.jsx` manages the shared task state.
+- Task information is passed to the relevant pages through props.
+- Callback functions allow child components to update task information.
+- `useLocalStorage` saves tasks and user preferences in the browser.
+- Controlled form inputs manage task information and settings.
+
+This approach keeps the application organized while allowing information to remain available after a browser refresh.
 
 ## Performance Considerations
 
@@ -124,6 +146,7 @@ React Compiler is part of the React optimization ecosystem and can automatically
 ## Installation and Setup
 
 ### Prerequisites
+
 - Node.js
 - npm
 - Git
@@ -160,6 +183,8 @@ Open the local URL provided by Vite in your browser.
 npm run build
 ```
 
+The production-ready files are generated in the `dist` directory.
+
 ## Learning Outcomes
 
 Through this project, I practiced:
@@ -168,22 +193,23 @@ Through this project, I practiced:
 - Managing shared and local state.
 - Passing data and callbacks through props.
 - Implementing controlled forms and validation.
-- Using React Hooks, including custom hooks.
+- Using React Hooks, including custom Hooks.
 - Managing side effects with `useEffect`.
-- Using `useRef` for references and timer intervals.
-- Implementing client-side routing.
+- Using `useRef` for element references and timer intervals.
+- Implementing client-side routing with React Router DOM.
 - Persisting application data with localStorage.
 - Building responsive interfaces with Tailwind CSS.
+- Organizing a React project into reusable components and folders.
 - Observing and understanding component rendering behavior.
 
 ## Project Links
 
-- **GitHub Repository:** https://github.com/Keniaumwali/studyflow-student-productivity-dashboard
-- **Live Application:** To be added after deployment.
-- **Project Walkthrough Video:** To be added after recording.
+- **GitHub Repository:** [StudyFlow on GitHub](https://github.com/Keniaumwali/studyflow-student-productivity-dashboard)
+- **Live Application:** [Open StudyFlow](https://studyflow-student-productivity-dash.vercel.app/)
+- **Project Walkthrough Video:** [View Project Walkthrough](https://docs.google.com/document/d/1axq8h5t9FAkUna6myDjycQPiN6EgsC1xg63L5yrfF3E/edit?tab=t.0)
 
 ## Author
 
-Umwali Keza Kenia
+**Umwali Keza Kenia**
 
 Student Productivity Dashboard – StudyFlow
