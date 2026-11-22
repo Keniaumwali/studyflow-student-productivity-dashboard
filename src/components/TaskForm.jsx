@@ -1,22 +1,17 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { X, Save } from "lucide-react";
 
 function TaskForm({ initialTask, onSave, onCancel }) {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Programming");
-  const [dueDate, setDueDate] = useState("");
-  const [priority, setPriority] = useState("Medium");
+  const [title, setTitle] = useState(initialTask?.title || "");
+  const [category, setCategory] = useState(
+    initialTask?.category || "Programming"
+  );
+  const [dueDate, setDueDate] = useState(initialTask?.dueDate || "");
+  const [priority, setPriority] = useState(
+    initialTask?.priority || "Medium"
+  );
   const [error, setError] = useState("");
-
-  // Load the selected task when editing
-  useEffect(() => {
-    setTitle(initialTask?.title || "");
-    setCategory(initialTask?.category || "Programming");
-    setDueDate(initialTask?.dueDate || "");
-    setPriority(initialTask?.priority || "Medium");
-    setError("");
-  }, [initialTask]);
 
   function handleSubmit(event) {
     event.preventDefault();
