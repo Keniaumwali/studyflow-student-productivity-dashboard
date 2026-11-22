@@ -9,16 +9,10 @@ import {
 
 import useToggle from "../hooks/useToggle";
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import useLocalStorage from "../hooks/useLocalStorage";
 
-const sessionDurations = {
-  Study: 25 * 60,
-  Break: 5 * 60,
-};
-
-function TimerSession({ session }) {
-  const [seconds, setSeconds] = useState(
-    sessionDurations[session]
-  );
+function TimerSession({ session, duration }) {
+  const [seconds, setSeconds] = useState(duration);
 
   const [isRunning, toggleRunning, setIsRunning] =
     useToggle(false);
@@ -52,7 +46,7 @@ function TimerSession({ session }) {
 
   function resetTimer() {
     setIsRunning(false);
-    setSeconds(sessionDurations[session]);
+    setSeconds(duration);
   }
 
   function formatTime(time) {
@@ -111,6 +105,16 @@ function FocusTimer() {
 
   const [session, setSession] = useState("Study");
 
+  const [studyDuration] = useLocalStorage(
+    "studyflow-study-duration",
+    25
+  );
+
+  const sessionDurations = {
+    Study: studyDuration * 60,
+    Break: 5 * 60,
+  };
+
   return (
     <div className="mx-auto max-w-3xl rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm md:p-12">
       <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-teal-50 text-teal-600">
@@ -142,7 +146,11 @@ function FocusTimer() {
         ))}
       </div>
 
-      <TimerSession key={session} session={session} />
+      <TimerSession
+        key={`${session}-${studyDuration}`}
+        session={session}
+        duration={sessionDurations[session]}
+      />
     </div>
   );
 }
