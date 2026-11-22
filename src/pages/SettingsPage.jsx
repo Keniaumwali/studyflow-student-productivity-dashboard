@@ -1,10 +1,27 @@
 
 import useLocalStorage from "../hooks/useLocalStorage";
-import { Target, Bell, Settings } from "lucide-react";
+import {
+  Target,
+  Bell,
+  Settings,
+  UserRound,
+  Clock,
+} from "lucide-react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 
 function SettingsPage() {
-    useDocumentTitle("Settings");
+  useDocumentTitle("Settings");
+
+  const [displayName, setDisplayName] = useLocalStorage(
+    "studyflow-display-name",
+    "Student"
+  );
+
+  const [studyDuration, setStudyDuration] = useLocalStorage(
+    "studyflow-study-duration",
+    25
+  );
+
   const [dailyGoal, setDailyGoal] = useLocalStorage(
     "studyflow-daily-goal",
     4
@@ -27,7 +44,7 @@ function SettingsPage() {
         </h1>
 
         <p className="mt-2 text-slate-500">
-          Customize your study goals and preferences.
+          Customize your profile, study goals and preferences.
         </p>
       </section>
 
@@ -39,6 +56,69 @@ function SettingsPage() {
           </h2>
         </div>
 
+        {/* Display Name */}
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex items-start gap-4">
+            <div className="rounded-xl bg-teal-50 p-3 text-teal-600">
+              <UserRound size={24} />
+            </div>
+
+            <div className="flex-1">
+              <h3 className="font-semibold text-slate-900">
+                Display Name
+              </h3>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Choose the name displayed in your study dashboard.
+              </p>
+
+              <input
+                type="text"
+                value={displayName}
+                onChange={(event) =>
+                  setDisplayName(event.target.value)
+                }
+                placeholder="Enter your name"
+                className="mt-4 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Preferred Study Duration */}
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex items-start gap-4">
+            <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
+              <Clock size={24} />
+            </div>
+
+            <div className="flex-1">
+              <h3 className="font-semibold text-slate-900">
+                Preferred Study Duration
+              </h3>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Choose how long your default focus sessions should last.
+              </p>
+
+              <select
+                value={studyDuration}
+                onChange={(event) =>
+                  setStudyDuration(Number(event.target.value))
+                }
+                className="mt-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-teal-500"
+              >
+                <option value={15}>15 minutes</option>
+                <option value={25}>25 minutes</option>
+                <option value={30}>30 minutes</option>
+                <option value={45}>45 minutes</option>
+                <option value={60}>60 minutes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Daily Study Goal */}
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex items-start gap-4">
             <div className="rounded-xl bg-teal-50 p-3 text-teal-600">
@@ -74,6 +154,7 @@ function SettingsPage() {
           </div>
         </div>
 
+        {/* Study Reminders */}
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-start gap-4">
@@ -96,7 +177,9 @@ function SettingsPage() {
               type="button"
               role="switch"
               aria-checked={reminders}
-              onClick={() => setReminders((previous) => !previous)}
+              onClick={() =>
+                setReminders((previous) => !previous)
+              }
               className={`relative h-7 w-12 shrink-0 rounded-full transition ${
                 reminders ? "bg-teal-500" : "bg-slate-300"
               }`}
