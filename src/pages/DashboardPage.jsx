@@ -11,10 +11,16 @@ import {
 
 import SummaryCard from "../components/SummaryCard";
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 function DashboardPage({ tasks }) {
-    useDocumentTitle("Dashboard");
-  // Derived values from the shared tasks array
+  useDocumentTitle("Dashboard");
+
+  const [displayName] = useLocalStorage(
+    "studyflow-display-name",
+    "Student"
+  );
+
   const totalTasks = tasks.length;
 
   const completedTasks = tasks.filter(
@@ -47,7 +53,7 @@ function DashboardPage({ tasks }) {
         </p>
 
         <h1 className="mt-2 text-3xl font-bold text-slate-900 md:text-4xl">
-          Welcome back!
+          Welcome back, {displayName.trim() || "Student"}!
         </h1>
 
         <p className="mt-2 text-slate-500">
